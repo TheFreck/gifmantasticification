@@ -11,6 +11,7 @@ h3{
     border-color: rgb(233, 233, 233);
     border-radius: 10%;
     box-shadow: 0px 0px 10px gray;
+    opacity: 1;
 }
 .rating{
     background: rgb(253, 181, 0);
@@ -34,7 +35,7 @@ h3{
     position: relative;
     border: ridge;
     border-width: 5px;
-    width: 100%;
+    width: 98%;
 }
 .banner{
     position: relative;
@@ -52,7 +53,7 @@ h3{
     background: tan;
     display: inline;
     border-radius: 70%;
-    padding: 0 5%;
+    padding: 0 15% 0 5%;
     margin: 1%;
     box-shadow: 2px 5px 18px #888888;
 }
@@ -68,12 +69,41 @@ h3{
 }
 #submit{
     position: relative;
-    margin-left: 5.5%;
-    display: inline;
+    margin: 10px 0;
+    display: inline1;
 }
 #clear{
     position: relative;
     margin-left: 1%;
     display: inline;
+
+}
+
+
+
+@media screen and (max-width: 992px){
+    h3{
+        font-size: 22px;
+    }
+
+    .card{
+        width: 95%;
+    }
+    .gif{
+        width: 50%;
+    }
+
+    #submit{
+        font-size: 20px; 
+    }
+    #clear{
+        font-size: 20px; 
+    }
+    #searchTerm{
+        font-size: 100%;
+    }
+}
+
+@media screen and (min-height: 900px){
 
 }

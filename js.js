@@ -1,4 +1,5 @@
 
+
 var topics = [
     "hiking",
     "camping",
@@ -81,7 +82,7 @@ function createButtons(){
 createButtons();
 
 // **************************************************************************
-// clicking on a button
+// clicking on a button and getting gifs
 // **************************************************************************
 
 var thisButton;
@@ -99,7 +100,7 @@ $("#buttons").on("click", ".button", function(event){
         url: queryURL,
         method: "GET"
     }).then(function(response){
-        console.log("response",response);
+        // console.log("response",response);
         
         for(i=0; i<10; i++){
             still = response.data[i].images.original_still.url;
@@ -128,7 +129,6 @@ $("#buttons").on("click", ".button", function(event){
             $("#gifs").prepend(card);   
         }
     })  
-    
 })
 
 // **************************************************************************
@@ -142,7 +142,6 @@ var rating
 $("#gifs").on("click", ".gifs", function(event){
     event.preventDefault();
     var $this = $(this);
-    
     // if the item clicked is moving
     if($(this).attr("moving")==="false"){
         
@@ -154,6 +153,10 @@ $("#gifs").on("click", ".gifs", function(event){
         $this.attr("src", $this.attr("data-still"));
         $this.attr("moving","false");
     }
-
 })
+
+
+
+
+
 

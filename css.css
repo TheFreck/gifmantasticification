@@ -1,24 +1,79 @@
+h3{
+    display: inline-block;
+}
+
+.header{
+    padding: 0 1%;;
+}
 .button{
     height: 30px;
     margin: 1% .5%;
+    border-color: rgb(233, 233, 233);
+    border-radius: 10%;
+    box-shadow: 0px 0px 10px gray;
 }
-
-#buttons{
+.rating{
+    background: rgb(253, 181, 0);
+    border: inset;
+    font-size: 22px;
+    padding: 1% 5%;
+}
+.card{
+    position: relative;
+    width: 420px;
+    display: inline-block;
+    margin: 1%;
     background: tan;
-    display: inline;
-    border-radius: 70%;
-    padding: 0 5%;
+    padding: .5%;
+    box-shadow: 5px 10px 50px #4d4d4d;
+    border: solid;
+    border-color: rgb(168, 151, 122);
+    border-width: 1px;
 }
 .gifs{
-    background: thistle;
+    position: relative;
     border: ridge;
-    border-width: 10px;
-    width: 420px;
+    border-width: 5px;
+    width: 100%;
 }
 .banner{
+    position: relative;
     width: 100%;
     height: 15px;
     background: tan;
     font-size: 22px;
     color: darkolivegreen;
+    display: inline-block;
+    border: ridge;
+    border-width: 10px;
+}
+    
+#buttons{
+    background: tan;
+    display: inline;
+    border-radius: 70%;
+    padding: 0 5%;
+    margin: 1%;
+    box-shadow: 2px 5px 18px #888888;
+}
+#gifs{
+    background: thistle;
+    margin: 1%;
+    border: ridge;
+    box-shadow: 0px 3px 18px gray;
+}
+#searchTerm{
+    margin: 1%;
+    box-shadow: 0 0 10px rgb(196, 196, 196) inset;
+}
+#submit{
+    position: relative;
+    margin-left: 5.5%;
+    display: inline;
+}
+#clear{
+    position: relative;
+    margin-left: 1%;
+    display: inline;
+
 }

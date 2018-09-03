@@ -4,7 +4,7 @@ var topics = [
     "camping",
     "banjo music",
     "psychedelic music",
-    "number patterns",
+    "hypnotic patterns",
     "geek humor",
     "travel"
 ]
@@ -18,19 +18,19 @@ var ID = 0;
 var local = localStorage;
 
 // *******************************************************************
-// integrate default topics into local storage
+// if there is no local storage it will populate the default topics
 // *******************************************************************
 
-console.log(localStorage.length);
 if(localStorage.length === 0){
-
     for(i=0; i<topics.length; i++){
-        if(!(topics[i] in local)){
-            localStorage.setItem(ID,topics[i]);
-            ID++;
-        }
+        localStorage.setItem(ID,topics[i]);
+        ID++;
     }
 }
+
+// ****************************************************************************
+// adding a new topic
+// ****************************************************************************
 
 $("#submit").on("click", function(event){
     event.preventDefault();
@@ -41,16 +41,18 @@ $("#submit").on("click", function(event){
     $("#searchTerm").val('');
 })
 
+// *************************************************************************
+// clearing the last topic clicked
+// *************************************************************************
+
 $("#clear").on("click", function(event){
     event.preventDefault();
     // delete the last button to have been clicked
     var index = 0;
-    for(i=0; i<localStorage.length; i++){
+    for(i=0; i<localStorage.length+100; i++){
         if(localStorage[i]===thisButton[0].textContent){
-            console.log(index);
             localStorage.removeItem(index) 
             createButtons();
-            console.log(localStorage);
         }
         index++;
     }
@@ -64,9 +66,8 @@ $("#clear").on("click", function(event){
 
 function createButtons(){
     $("#buttons").empty();
-    for(i=0; i<localStorage.length+10; i++){
+    for(i=0; i<localStorage.length+100; i++){
         if(localStorage[i]){
-            console.log("createButtons",i);
             var button = $("<button>");
             button.addClass("button");
             button.attr("data-topic",localStorage[i]);
@@ -103,19 +104,28 @@ $("#buttons").on("click", ".button", function(event){
         for(i=0; i<10; i++){
             still = response.data[i].images.original_still.url;
             moving = response.data[i].images.original.url;
+            var thisRating = response.data[i].rating;
+            //console.log("thisRating",thisRating);
+
+            var card = $("<div>");
+            card.addClass("card");
+
             var img = $("<img>");
             img.addClass("gifs");
             img.attr("data-still",still);
             img.attr("data-moving",moving);
             img.attr("src",still);
             img.attr("moving",false);
-            img.attr("rating",response.data[i].rating);
+            img.attr("rating",thisRating);
+            card.append(img);
             
-            var ratings = $("<banner>");
-            ratings.addClass("banner");
-            ratings.text("Rating: " + response.data[i].rating)
-            img.append(ratings);
-            $("#gifs").prepend(img);   
+            var banner = $("<div>");
+            banner. addClass("rating");
+            banner.attr("rating",thisRating);
+            banner.text("Rating: " + thisRating);
+            card.append(banner);
+
+            $("#gifs").prepend(card);   
         }
     })  
     
@@ -135,7 +145,6 @@ $("#gifs").on("click", ".gifs", function(event){
     
     // if the item clicked is moving
     if($(this).attr("moving")==="false"){
-
         
         // change state to 'moving'
         $this.attr("src", $this.attr("data-moving"));

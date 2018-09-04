@@ -14,7 +14,7 @@ h3{
     opacity: 1;
 }
 .rating{
-    background: rgb(253, 181, 0);
+    background: rgb(255, 210, 98);
     border: inset;
     font-size: 22px;
     padding: 1% 5%;
@@ -35,7 +35,7 @@ h3{
     position: relative;
     border: ridge;
     border-width: 5px;
-    width: 98%;
+    width: 100%;
 }
 .banner{
     position: relative;

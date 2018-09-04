@@ -67,10 +67,22 @@ $("#clear").on("click", function(event){
 
 function createButtons(){
     $("#buttons").empty();
+    var trending = $("<button>");
+    trending.addClass("button");
+    trending.attr("id","trending");
+    trending.text("trending");
+    $("#buttons").append(trending);
+
+    var random = $("<button>");
+    random.addClass("button");
+    random.attr("id", "random");
+    random.text("random");
+    $("#buttons").append(random);
+
     for(i=0; i<localStorage.length+100; i++){
         if(localStorage[i]){
             var button = $("<button>");
-            button.addClass("button");
+            button.addClass("button userButtons");
             button.attr("data-topic",localStorage[i]);
             button.text(localStorage[i]);
             $("#buttons").append(button);
@@ -86,58 +98,98 @@ createButtons();
 // **************************************************************************
 
 var thisButton;
+var searchTerm;
 
-$("#buttons").on("click", ".button", function(event){
+$("#buttons").on("click", ".userButtons", function(event){
+    searchTerm = $(this).attr("data-topic");
     event.preventDefault();
+    go("v1/gifs/search?q=");
+})
+$("#buttons").on("click", "#trending", function(event){
+    searchTerm = "";
+    event.preventDefault();
+    go("v1/gifs/trending?q=");
+})
+$("#buttons").on("click", "#random", function(event){
+    searchTerm = "";
+    event.preventDefault();
+    go("v1/gifs/random?q=",true);
+})
+
+function go(path,rand){
+    console.log("go rand",rand);
     thisButton = $(this);
 
-    var searchTerm = $(this).attr("data-topic");
-    var URL = "https://api.giphy.com/v1/gifs/search?q=";
+    var URL = "https://api.giphy.com/";
     var APIkey = "&api_key=uyL6KKujqXKkkziBvq8M6CXzL17CbQTh";
-    queryURL = URL + searchTerm + APIkey;
+    queryURL = URL + path + searchTerm + APIkey;
 
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response){
-        // console.log("response",response);
-        
-        for(i=0; i<10; i++){
-            still = response.data[i].images.original_still.url;
-            moving = response.data[i].images.original.url;
-            var thisRating = response.data[i].rating;
-            //console.log("thisRating",thisRating);
+        console.log("response",response);
 
-            var card = $("<div>");
-            card.addClass("card");
-
-            var img = $("<img>");
-            img.addClass("gifs");
-            img.attr("data-still",still);
-            img.attr("data-moving",moving);
-            img.attr("src",still);
-            img.attr("moving",false);
-            img.attr("rating",thisRating);
-            card.append(img);
-            
-            var banner = $("<div>");
-            banner. addClass("rating");
-            banner.attr("rating",thisRating);
-            banner.text("Rating: " + thisRating);
-            card.append(banner);
-
-            $("#gifs").prepend(card);   
+        if(!rand){
+            console.log("input 10");
+            makeCards(10);
+        }else{
+            console.log("input 1");
+            makeCards(1, true);
         }
+        
+        var still;
+        var moving;
+        var rating
+        function makeCards(counter, isRand){
+            console.log("makeCards");
+            console.log("isRand",isRand);
+            for(i=0; i<counter; i++){
+                var thisRating;
+                if(!isRand){
+                    thisRating = response.data[i].rating;
+                    console.log("not random");
+                    still = response.data[i].images.original_still.url;
+                    moving = response.data[i].images.original.url;
+                }else{
+                    console.log("random");
+                    still = response.data.images.original_still.url;
+                    moving = response.data.images.original.url;
+                    thisRating = "not rated";
+                }
+                    
+    
+                var card = $("<div>");
+                card.addClass("card");
+    
+                var img = $("<img>");
+                img.addClass("gifs");
+                img.attr("data-still",still);
+                img.attr("data-moving",moving);
+                img.attr("src",still);
+                img.attr("moving",false);
+                img.attr("rating",thisRating);
+                card.append(img);
+                
+                var banner = $("<div>");
+                banner. addClass("rating");
+                banner.attr("rating",thisRating);
+                banner.text("Rating: " + thisRating);
+                card.append(banner);
+    
+                $("#gifs").prepend(card);   
+            }
+        }
+        
     })  
-})
+}
+
 
 // **************************************************************************
 // clicking on a gif
 // **************************************************************************
 
-var still;
-var moving;
-var rating
+
 
 $("#gifs").on("click", ".gifs", function(event){
     event.preventDefault();

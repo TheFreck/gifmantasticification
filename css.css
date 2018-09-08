@@ -56,6 +56,8 @@ h3{
     padding: 0 15% 0 5%;
     margin: 1%;
     box-shadow: 2px 5px 18px #888888;
+    background-color: tan; /* For browsers that do not support gradients */
+    background-image: linear-gradient(rgb(216, 132, 22), tan, rgb(121, 85, 39)); 
 }
 #gifs{
     background: thistle;
@@ -71,14 +73,20 @@ h3{
     position: relative;
     margin: 10px 0;
     display: inline1;
+    background: tan;
 }
 #clear{
     position: relative;
     margin-left: 1%;
     display: inline;
-
+    background: tan;
 }
-
+#clearPage{
+    position: relative;
+    margin-left: 1%;
+    display: inline;
+    background: tan;
+    }
 
 
 @media screen and (max-width: 992px){
